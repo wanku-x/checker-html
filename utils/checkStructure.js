@@ -1,41 +1,3 @@
-const validator = require('html-validator');
-const isWhitespace = require('hast-util-whitespace');
-
-const validate = async (html) => {
-  const options = {
-    validator: 'WHATWG',
-    data: html ? html : ' ',
-    format: 'json',
-    isFragment: true,
-  }
-  
-  try {
-    const result = await validator(options)
-    return result
-  } catch (error) {
-    return error
-  }
-}
-
-const removeTrashNodes = (hast) => {
-  const recursive = (children) => (
-    children.filter((el) => {
-      if (el.hasOwnProperty('children')) {
-        return (el.children = recursive(el.children))
-      }
-      if (
-        !isWhitespace(el) &&
-        (el.type !== 'comment')
-      ) return true;
-    })
-  );
-
-  return {
-    ...hast,
-    children: recursive(hast.children),
-  }
-};
-
 const checkStructure = (decision, answer) => {
   if (!decision.hasOwnProperty('children') && !answer.hasOwnProperty('children')) {
     return {
@@ -86,13 +48,4 @@ const checkStructure = (decision, answer) => {
   }
 };
 
-const checkTypes = (decision, answer) => (
-  null
-);
-
-module.exports = {
-  validate,
-  removeTrashNodes,
-  checkStructure,
-  checkTypes,
-}
+module.exports = checkStructure;

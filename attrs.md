@@ -1,6 +1,6 @@
 # Разрешенные
 
-"class",
+"className",
 "dir",
 "hidden",
 "id",

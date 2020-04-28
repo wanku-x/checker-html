@@ -1,13 +1,14 @@
 'use strict'
 
-const utils = require('./utils');
 const vfile = require('vfile');
 const parse5 = require('parse5');
 const fromParse5 = require('hast-util-from-parse5');
 const inspect = require('unist-util-inspect');
 const h = require('hastscript');
 
+const checkIsFragment = require('./utils/checkIsFragment');
 const sanitize = require('./utils/sanitize');
+const validate = require('./utils/validate');
 
 const answer = {
   type: 'root',
@@ -24,20 +25,20 @@ const answer = {
 }
 
 const HTML =`
-<FOOTER class="footer" hidden="hidden">
-  <img class="image" src="qwe" alt="rty">
-  <ul>
-    <script>кукукукуку</script>
-    <li></li>
-  </ul>
-</FOOTER>
+<!DOCTYPE html>
+<head>
+  <title>Title</title>
+</head>
+<body>
+  <p>Ntfsdfsd</p>
+</body>
 `;
 
 const file = vfile({contents: HTML});
-const ast = parse5.parseFragment(HTML, {sourceCodeLocationInfo: true});
+const ast = parse5.parse(HTML, { sourceCodeLocationInfo: true });
 const hast = fromParse5(ast, file);
 
-console.log(hast.children[1]);
+console.log(hast)
 // const resultSanitize = sanitize(hast);
 
 // if (!resultSanitize.success) {
@@ -45,14 +46,15 @@ console.log(hast.children[1]);
 //   return;
 // }
 
-
-
-
-// const decision = removeTrashNodes(hast);
-
 // validate(HTML).then((validateResult) => {
 //   if (!validateResult.isValid) {
 //     console.log(validateResult);
 //     return;
 //   }
 // });
+
+
+
+
+
+// const decision = removeTrashNodes(hast);

@@ -4,19 +4,18 @@ const isElementIn = require('hast-util-is-element');
 const allowedTags = require('../constants/allowed-tags');
 const allowedAttrs = require('../constants/allowed-attrs');
 
-const hasNotAllowedAttrs = (props, allowed) => {
-  let filteredProps = props;
+const hasNotAllowedAttrs = (el, allowed) => {
+  if (!el.hasOwnProperty('properties')) return false
   
-  lodash.forIn(props, (value, prop) => (
-    null
-  ));
+  let props = el.properties;
+  
   for (let prop in props) {
     if (allowed.includes(prop)) {
-      delete filteredProps[prop];
+      delete props[prop];
     }
   }
 
-  return (filteredProps === []) ? false : notAllowed; 
+  return lodash.isEmpty(props) ? false : props;
 }
 
 const sanitize = (hast) => {
@@ -33,10 +32,13 @@ const sanitize = (hast) => {
         });
       }
 
-      if (el.hasOwnProperty('properties') && hasNoPropertyIn(el, allowedAttrs)) {
+      const filteredProps = hasNotAllowedAttrs(el, allowedAttrs);
+
+      if (filteredProps) {
         attrsNotAllowed.push({
           type: el.type,
           tagName: el.tagName,
+          properties: filteredProps,
           position: el.position,
         })
       }

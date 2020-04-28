@@ -1,19 +1,19 @@
 const allowedAttrs = [
   // Global attrs
-  'class',
+  'className',
   'id',
   'dir',
   'hidden',
   'lang',
   'style',
-  'tabindex',
+  'tabIndex',
   'title',
 
   // Aria attrs
-  'aria-describedby',
-  'aria-hidden',
-  'aria-label',
-  'aria-labelledby',
+  'ariaDescribedby',
+  'ariaDidden',
+  'ariaLabel',
+  'ariaLabelledby',
 
   // List attrs
   'reversed',
@@ -23,16 +23,16 @@ const allowedAttrs = [
 
   // Link attrs
   'href',
-  'hreflang',
+  'hrefLang',
   'rel',
 
   // Text-level attrs
   'cite',
-  'datetime',
+  'dateTime',
 
   // Tabular attrs
-  'colspan',
-  'rowspan',
+  'colSpan',
+  'rowSpan',
   'headers',
 
   // Image attrs
@@ -41,7 +41,7 @@ const allowedAttrs = [
   'height',
   'width',
   'sizes',
-  'srcset',
+  'srcSet',
 
   // Form attrs
   'disabled',
@@ -61,9 +61,9 @@ const allowedAttrs = [
   'form',
   'max',
   'min',
-  'maxlength',
-  'minlength',
-  'readonly',
+  'maxLength',
+  'minLength',
+  'readOnly',
   'required',
   'step',
   'wrap',
